@@ -1,0 +1,32 @@
+"""
+Requirements file for the Lexical Analyzer project.
+
+This file lists all the Python packages required to run the project.
+"""
+
+# Core Python packages (usually included with Python)
+# No external dependencies required for basic functionality
+
+# Optional packages for enhanced functionality
+# Uncomment if you want to use these features
+
+# For better testing framework
+# pytest>=7.0.0
+
+# For code formatting and linting
+# black>=22.0.0
+# flake8>=4.0.0
+
+# For type checking
+# mypy>=0.950
+
+# For documentation generation
+# sphinx>=4.0.0
+
+# For development tools
+# ipython>=8.0.0
+
+# Note: This project is designed to work with Python 3.7+
+# No external dependencies are required for the core functionality
+# All modules use only Python standard library
+
