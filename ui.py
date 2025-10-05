@@ -51,6 +51,7 @@ class AnalyzerWindow(tk.Frame):
 
 		self.textResult.tag_configure("EVEN", background="medium spring green")
 		self.textResult.tag_configure("ODD", background="pale green")
+		self.textResult.tag_configure("ERROR", background="yellow2")
 		self.textResult.config(font=("Courier", 10), background="pale green")
 		
 		#add the children to the pane
@@ -76,7 +77,7 @@ class AnalyzerWindow(tk.Frame):
 		result = analyzer.lex(self.textInput.get(1.0, END))
 		self.textResult.delete(1.0, END)
 
-		if not isinstance(result, RuntimeError):
+		if not isinstance(result, str):
 			# if its a valid result, then iterate through it in order to make it readable
 			for idx, token in enumerate(result):
 				kind, value = token
@@ -85,7 +86,7 @@ class AnalyzerWindow(tk.Frame):
 				tag_name = "EVEN" if idx % 2 else "ODD"
 				self.textResult.insert(tk.END, line, (tag_name))
 		else:
-			self.textResult.insert(INSERT, result)
+			self.textResult.insert(INSERT, result, ("ERROR"))
 
 root = tk.Tk()
 root.minsize(400, 300)

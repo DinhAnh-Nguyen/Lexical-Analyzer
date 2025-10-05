@@ -27,7 +27,7 @@ class LexicalAnalyzer:
     )
 
   #this function takes in a string of code and returns a list of tuples
-  def lex(self, code: str) -> Union[RuntimeError, List[Tuple[str, str]]]:
+  def lex(self, code: str) -> Union[str, List[Tuple[str, str]]]:
     tokens = []
     pos = 0
 
@@ -36,14 +36,14 @@ class LexicalAnalyzer:
       #try to match it against regex
       match = self.regex.match(code, pos)
       if not match:
-        return RuntimeError(f'Unexpected character at position {pos}')
+        return f'Unexpected character at position {pos}'
       kind = match.lastgroup
       value = match.group()
       
       if kind == 'SKIP':
         pass
       elif kind == 'MISMATCH':
-        return RuntimeError(f'Unexpected character: {value!r}')
+        return f'Unexpected character: {value!r}'
       # whitespaces arent syntactically significant, other than for separating tokens
       elif kind == 'WHITESPACE':
         pos = match.end()
