@@ -1,4 +1,3 @@
-from tkinter import *
 import tkinter as tk
 
 from analyzer import LexicalAnalyzer
@@ -16,13 +15,21 @@ class AnalyzerWindow(tk.Frame):
 		"code in the left textbox and then hit Analyze. The result will be in the right textbox" \
 		"\nThe text boxes can be resized via the handle in the middle"
 
-		self.defaultInputString = "input <- [5, 8, 12, 4, 10]" \
+		self.testStringOne = "input <- [5, 8, 12, 4, 10]" \
 		"\ncount <- 0" \
 		"\ntotal <- 0" \
 		"\nfor x in input do" \
-		"\n	count <- count + 1" \
-		"\n	total <- total + x " \
+		"\n\tcount <- count + 1" \
+		"\n\ttotal <- total + x " \
 		"\naverage <- total / count"
+
+		self.testStringTwo = "one <- FALSE" \
+		"\ntwo <- TRUE" \
+		"\nif one IS NOT two do" \
+		"\n\ttwo <- 10 >= 11" \
+		"\n\tone <- 10 <= 10" \
+		"\ntwo IS one" \
+		"\ntwo IS NOT one"
 
 		self.stringResult = tk.StringVar()
 		self.stringResult.set("Click Analyze!")
@@ -43,11 +50,11 @@ class AnalyzerWindow(tk.Frame):
 
 		#create the two text areas with the pane as their parent
 		self.textInput = tk.Text(self.paned, height = 15, width = 40)
-		self.textInput.insert(INSERT, self.defaultInputString)
+		self.textInput.insert(tk.INSERT, self.testStringOne)
 		self.textInput.config(font=("Courier", 10), background="khaki")
 
 		self.textResult = tk.Text(self.paned, height=15, width = 40)
-		self.textResult.insert(INSERT, self.stringResult.get())
+		self.textResult.insert(tk.INSERT, self.stringResult.get())
 
 		self.textResult.tag_configure("EVEN", background="medium spring green")
 		self.textResult.tag_configure("ODD", background="pale green")
@@ -58,24 +65,38 @@ class AnalyzerWindow(tk.Frame):
 		self.paned.add(self.textInput)
 		self.paned.add(self.textResult)
 
+		#create a frame so the buttons can be side by side
+		self.frameButtons = tk.Frame()
+		self.frameButtons.pack()
+
 		#create the buttons
-		self.buttonAnalyze = tk.Button(text = "Analyze!", command = self.analyze)
-		self.buttonAnalyze.pack()
+		self.buttonAnalyze = tk.Button(self.frameButtons, text = "Analyze!", command = self.analyze)
+		self.buttonAnalyze.pack(side='left')
 		self.buttonAnalyze.configure(background=self.backgroundColour)
 		
-		self.buttonExample = tk.Button(text = "Insert default code", command = self.setExampleInput)
-		self.buttonExample.pack()
+		self.buttonExample = tk.Button(self.frameButtons, text = "Insert example 1", command = lambda: self.setExampleInput(1))
+		self.buttonExample.pack(side='left')
 		self.buttonExample.configure(background=self.backgroundColour)
 
-	def setExampleInput(self):
-		self.textInput.delete(1.0, END)
-		self.textInput.insert(INSERT, self.defaultInputString)
+		self.buttonExampleTwo = tk.Button(self.frameButtons, text = 'Insert example 2', command= lambda: self.setExampleInput(2))
+		self.buttonExampleTwo.pack(side='left')
+		self.buttonExampleTwo.config(background=self.backgroundColour)
+
+	def setExampleInput(self, exampleIdx):
+		self.textInput.delete(1.0, tk.END)
+		match exampleIdx:
+			case 1:
+				self.textInput.insert(tk.INSERT, self.testStringOne)
+				return
+			case 2:
+				self.textInput.insert(tk.INSERT, self.testStringTwo)
+				return
 
 	#function to be called when clicking analyze
-	def analyze(self, event = None):
+	def analyze(self):
 		analyzer = LexicalAnalyzer()
-		result = analyzer.lex(self.textInput.get(1.0, END))
-		self.textResult.delete(1.0, END)
+		result = analyzer.lex(self.textInput.get(1.0, tk.END))
+		self.textResult.delete(1.0, tk.END)
 
 		if not isinstance(result, str):
 			# if its a valid result, then iterate through it in order to make it readable
@@ -86,11 +107,10 @@ class AnalyzerWindow(tk.Frame):
 				tag_name = "EVEN" if idx % 2 else "ODD"
 				self.textResult.insert(tk.END, line, (tag_name))
 		else:
-			self.textResult.insert(INSERT, result, ("ERROR"))
+			self.textResult.insert(tk.INSERT, result, ("ERROR"))
 
 root = tk.Tk()
 root.minsize(400, 300)
-# root.resizable(False, False)
 root.title("Lexical Analyzer")
 root.configure(background="azure3")
 

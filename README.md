@@ -12,4 +12,4 @@ average <- total / count
 ```
 It uses the UI library [Tkinter](https://docs.python.org/3/library/tkinter.html) which should be available by default on Windows, but might need to be installed manually on Macos and Linux. 
 ### Usage
-```python3 ui.py```
+Interactive ui with: ```python ui.py``` or commandline tests with: ```python tests.py```

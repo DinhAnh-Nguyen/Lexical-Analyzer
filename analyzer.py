@@ -13,9 +13,17 @@ class LexicalAnalyzer:
       ('MINUS',      r'-'),
       ('TIMES',      r'\*'),
       ('DIVIDE',     r'/'),
+      ('LEQ',        r'<='),
+      ('GEQ',        r'>='),
+      ('LESS',       r'<'),
+      ('GREATER',    r'>'),
+      ('INEQUAL',    r'\bIS\s+NOT\b'),
+      ('EQUAL',      r'\bIS\b'),
+      ('TRUE',       r'\bTRUE\b'),
+      ('FALSE',      r'\bFALSE\b'),
       ('NEWLINE',    r'\n'),
       ('COMMA',      r','),
-      ('KEYWORD',    r'\b(for|in|do)\b'), # match any defined keyword
+      ('KEYWORD',    r'\b(for|in|do|while|if)\b'), # match any defined keyword
       ('IDENT',      r'[A-Za-z_]\w*'), #any string identifier
       ('TAB',        r'\t'), #tabs are significant in language that doesnt use brackets for blocks
       ('WHITESPACE', r'\s+'), #whitespaces are matched but skipped in the end
@@ -40,13 +48,11 @@ class LexicalAnalyzer:
       kind = match.lastgroup
       value = match.group()
       
-      if kind == 'SKIP':
-        pass
-      elif kind == 'MISMATCH':
+      if kind == 'MISMATCH':
         return f'Unexpected character: {value!r}'
-      # whitespaces arent syntactically significant, other than for separating tokens
+      # whitespaces arent syntactically significant but theyre matched anyways so that they dont cause MISMATCH
       elif kind == 'WHITESPACE':
-        pos = match.end()
+        pass
       else:
         #if it matched, append it to the result array
         tokens.append((kind, value))
