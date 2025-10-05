@@ -117,7 +117,7 @@ root.configure(background="azure3")
 
 #make it less blurry on windows
 try:
-	ctypes.windll.shcore.SetProcessDpiAwareness(1) # 1 for System DPI Aware, 2 for Per Monitor DPI Aware
+	ctypes.windll.shcore.SetProcessDpiAwareness(1) # type: ignore # 1 for System DPI Aware, 2 for Per Monitor DPI Aware
 except AttributeError:
 	pass # Not all Windows versions support this
 
