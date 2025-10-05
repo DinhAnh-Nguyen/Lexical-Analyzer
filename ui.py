@@ -1,3 +1,4 @@
+import ctypes
 import tkinter as tk
 
 from analyzer import LexicalAnalyzer
@@ -113,6 +114,12 @@ root = tk.Tk()
 root.minsize(400, 300)
 root.title("Lexical Analyzer")
 root.configure(background="azure3")
+
+#make it less blurry on windows
+try:
+	ctypes.windll.shcore.SetProcessDpiAwareness(1) # 1 for System DPI Aware, 2 for Per Monitor DPI Aware
+except AttributeError:
+	pass # Not all Windows versions support this
 
 analyzer = AnalyzerWindow(root)
 analyzer.mainloop()
