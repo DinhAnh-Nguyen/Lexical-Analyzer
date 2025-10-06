@@ -9,9 +9,6 @@ class AnalyzerWindow(tk.Frame):
 		#set the layout method to pack
 		self.pack()
 
-		#create variables
-		title = "Lexical Analyzer"
-
 		helpText = "This program is a small Lexical Analyzer. \nInput your " \
 		"code in the left textbox and then hit Analyze. The result will be in the right textbox" \
 		"\nThe text boxes can be resized via the handle in the middle"
@@ -111,7 +108,7 @@ class AnalyzerWindow(tk.Frame):
 			self.textResult.insert(tk.INSERT, result, ("ERROR"))
 
 root = tk.Tk()
-root.minsize(400, 300)
+root.minsize(1310, 600)
 root.title("Lexical Analyzer")
 root.configure(background="azure3")
 
