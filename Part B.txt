@@ -90,3 +90,5 @@ program
                 ├── operator → "/"
                 └── term → identifier("count")
     - Analyze and compare the parse trees from Steps 4 and 7 to understand the impact of syntax modifications on the parse tree structure.
+      - The syntax modification of the EBNF grammar makes it much easier to see and understand the parse tree structure. 
+      - Addtionally, compared to the structure made from using the BNF grammar, this one illustrates the heirarchy and relationship between the components more clearly.
