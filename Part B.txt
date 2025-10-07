@@ -25,7 +25,7 @@ average <- total / count
 <program> ::= <statement_list>
 <statement_list> ::= <statement> | <statement> <statement_list>
 <statement> ::= <declaration> | <for_loop>
-<declaration> ::= <identifier> "<-" <expression>
+<declaraon> ::= <identifier> "<-" <expression>
 <for_loop> ::= "for" <identifier> "in" <identifer> "do" <stmts>
 <identifier> ::= <letter> { <letter> }
 <letter> ::= "a" | "b" .. "z" | "A" .. "Z"
@@ -57,7 +57,36 @@ See Syntax tree.png
 
 6. Rewrite the BNF grammar using Extended Backus-Naur Form (EBNF) to enhance readability and expressiveness.
     - Explain the benefits of using EBNF over traditional BNF, particularly in terms of readability and clarity.
+    EBNF extends BNF by adding: 
+        [] = optional parts 
+        {} = repetition (0 or more times)
+        () = grouping of expressions
+        | = alternation (choice)
+        - use = and ; instead of ::= 
     - Remove any ambiguity present in the BNF grammar through syntax modifications in the EBNF version.
+    program = { statement } ;
+    statement = declaration | for_loop ;
+    declaration = identifier "<--" expression ;
+    for_loop = "for": identifier "in" identifier "do" { statement } "end";
+    expression = term { operator term }:
+    term = number | identifier | list ;
+    list = "[" number { "," number } "]" ;
+    operator = "+" | "-" | "*" | "/" ;
+    identifier = letter { letter | digit } ;
+    letter = "A".."Z" | "a".."z"
+    digit         = "0".."9" ;
+    number        = digit { digit } ;           
+
+
 
 7. Use the EBNF grammar to reconstruct a parse tree, demonstrating how the revised syntax resolves any ambiguities present in the original BNF grammar.
+program
+ └── statement
+      └── declaration
+           ├── identifier → "average"
+           ├── "<-"
+           └── expression
+                ├── term → identifier("total")
+                ├── operator → "/"
+                └── term → identifier("count")
     - Analyze and compare the parse trees from Steps 4 and 7 to understand the impact of syntax modifications on the parse tree structure.
