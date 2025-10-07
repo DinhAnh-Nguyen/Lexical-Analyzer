@@ -37,10 +37,13 @@ average <- total / count
 ```
 
 4. Construct a parse tree based on the BNF grammar to visualize the syntactic structure of the problem.
+See Syntax tree.png
 
 5. Examine the parse tree constructed in Step 4 to determine if the BNF grammar is ambiguous.
     A. Identify any areas where multiple interpretations are possible.
+        Because this parse tree contains simple statements and expressions with no more than 1 operator, it isn't ambiguous anywhere
     B. Provide examples or scenarios to illustrate potential ambiguities and their implications.
+        Grammar can be ambiguous when multiple different parse trees can be drawn from a string and no precedence is defined. For example: 1 + 3 / 2. This can either be interpreted as (1 + 3) / 2 or 1 + (3 / 2)
 
 6. Rewrite the BNF grammar using Extended Backus-Naur Form (EBNF) to enhance readability and expressiveness.
     A. Explain the benefits of using EBNF over traditional BNF, particularly in terms of readability and clarity.
