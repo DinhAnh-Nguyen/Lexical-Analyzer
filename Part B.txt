@@ -25,7 +25,7 @@ average <- total / count
 <program> ::= <statement_list>
 <statement_list> ::= <statement> | <statement> <statement_list>
 <statement> ::= <declaration> | <for_loop>
-<declaraon> ::= <identifier> "<-" <expression>
+<declaration> ::= <identifier> "<-" <expression>
 <for_loop> ::= "for" <identifier> "in" <identifer> "do" <stmts>
 <identifier> ::= <letter> { <letter> }
 <letter> ::= "a" | "b" .. "z" | "A" .. "Z"
